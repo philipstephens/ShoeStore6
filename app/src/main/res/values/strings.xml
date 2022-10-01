@@ -1,3 +1,35 @@
 <resources>
     <string name="app_name">ShoeStore</string>
+    <string name="cd_create_button_title">Create login details</string>
+    <string name="cd_email_title">Email address</string>
+    <string name="cd_english_flag">Image of English flag</string>
+    <string name="cd_french_flag">Image of French flag</string>
+    <string name="cd_login_button_title">Login to account</string>
+    <string name="cd_password_title">Password</string>
+    <string name="cd_repeat_title">Repeat Password</string>
+    <string name="cd_shoes">Image of sneakers</string>
+    <string name="en_create_button_title">Create Account</string>
+    <string name="en_hint_email_address">Enter email address</string>
+    <string name="en_hint_password">Enter password</string>
+    <string name="en_hint_password2">Re-enter password</string>
+    <string name="en_login_button_title">Login</string>
+    <string name="en_login_email_title">Email Address</string>
+    <string name="en_password_title">Password</string>
+    <string name="en_repeat_title">Repeat Password</string>
+    <string name="fr_create_button_title">Créer un compte</string>
+    <string name="fr_hint_email_address">Entrer l\'adresse e-mail</string>
+    <string name="fr_hint_password">Entrer le mot de passe</string>
+    <string name="fr_hint_password2">Entrez à nouveau le mot de passe</string>
+    <string name="fr_login_button_title">l\' ouverture de session</string>
+    <string name="fr_login_email_title">l\' adresse électronique</string>
+    <string name="fr_password_title">Mot de passe</string>
+    <string name="fr_repeat_title">Répéter le mot de passe</string>
+    <string name="en_welcome_text1">Welcome to the shoe store inventory application!  We hope you will find everything you need and enjoy all the features of this app!</string>
+    <string name="en_welcome_text2">With this app you will be able to:\n\n* View instructions\n* Obtain a list of shoes\n* View detailed information about a shoe</string>
+    <string name="fr_welcome_text1">Bienvenue dans l\'application d\'inventaire de magasin de chaussures !  Nous espérons que vous trouverez tout ce dont vous avez besoin et que vous apprécierez toutes les fonctionnalités de cette application !</string>
+    <string name="fr_welcome_text2">Avec cette application, vous pourrez :\n\n* Voir les instructions\n* Obtenir une liste de chaussures\n* Afficher des informations détaillées sur une chaussure</string>
+    <string name="en_instructions_button_text">Instructions</string>
+    <string name="fr_instructions_button_text">Instructions</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

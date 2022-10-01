@@ -20,6 +20,12 @@
             app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
     </com.google.android.material.appbar.AppBarLayout>
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@"
+        android:name="">
 
+    </fragment>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
