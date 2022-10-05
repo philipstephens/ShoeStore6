@@ -38,10 +38,9 @@ class InstructionsFragment : Fragment() {
         }
 
         binding.listShoesButton.setOnClickListener {
-            context?.let{
-                val intent = Intent(it, ShoeListActivity3::class.java)
-                startActivity(intent)
-            }
+            it.findNavController().navigate(
+                InstructionsFragmentDirections.actionInstructionsFragmentToShoeListActivity3()
+            )
         }
 
         return binding.root

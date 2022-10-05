@@ -3,10 +3,12 @@ package com.udacity.shoestore
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.udacity.shoestore.databinding.ActivityMainBinding
 import com.udacity.shoestore.databinding.ActivityShoeList3Binding
 
 class ShoeListActivity3 : AppCompatActivity() {
@@ -17,12 +19,11 @@ class ShoeListActivity3 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityShoeList3Binding.inflate(layoutInflater)
-        setContentView(binding.root)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_shoe_list3)
 
         setSupportActionBar(binding.toolbar)
 
-        val navController = findNavController(R.id.navigation)
+        val navController = findNavController(R.id.id_activity_shoe_list3)
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
