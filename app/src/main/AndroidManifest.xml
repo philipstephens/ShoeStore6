@@ -8,11 +8,26 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:screenOrientation="landscape"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
-        android:screenOrientation="landscape"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".ShoeListActivity3"
+            android:exported="false"
+            android:label="@string/title_activity_shoe_list2"
+            android:theme="@style/AppTheme.NoActionBar.NoActionBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+        </activity>
+        <!-- <activity -->
+        <!-- android:name=".ShoeListActivity" -->
+        <!-- android:exported="false" -->
+        <!-- android:label="@string/title_activity_shoe_list" -->
+        <!-- android:theme="@style/AppTheme.NoActionBar.NoActionBar" /> -->
+        <activity
+            android:name=".MainActivity"
             android:exported="true"
             android:screenOrientation="unspecified">
             <intent-filter>

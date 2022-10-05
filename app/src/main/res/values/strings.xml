@@ -20,6 +20,18 @@
     <string name="en_welcome_text2_list2">* Obtain a list of shoes</string>
     <string name="en_welcome_text2_list3">* View detailed information about a shoe</string>
     <string name="en_welcome_button_text">Instructions</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="list_shoes_heading">List of Shoes</string>
+    <string name="names_heading">Names</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_view_model">ViewModelActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="title_activity_shoe_list">ShoeList</string>
+    <string name="title_activity_shoe_list2">ShoeListActivity3</string>
 </resources>

@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'androidx.navigation.safeargs'
 
 android {
     compileSdkVersion 33
@@ -25,14 +26,22 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
+        jvmTarget = '1.8'
     }
     buildFeatures {
         dataBinding true
+        viewBinding true
     }
 }
 
 dependencies {
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.2'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.2'
     dependencies {
         def nav_version = "2.5.2"
         implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -43,8 +52,8 @@ dependencies {
         implementation 'androidx.constraintlayout:constraintlayout:2.0.0-rc1'
         implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
         // Java language implementation
-        implementation "androidx.navigation:navigation-fragment:$nav_version"
-        implementation "androidx.navigation:navigation-ui:$nav_version"
+        // implementation "androidx.navigation:navigation-fragment:$nav_version"
+        // implementation "androidx.navigation:navigation-ui:$nav_version"
         // Kotlin
         implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
         implementation "androidx.navigation:navigation-ui-ktx:$nav_version"

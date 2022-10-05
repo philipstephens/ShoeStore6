@@ -1,85 +1,98 @@
 package com.udacity.shoestore
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import com.udacity.shoestore.databinding.FragmentLoginBinding
+import com.udacity.shoestore.models.ShoeViewModel
 
 // default language: English
-private const val ARG_LANGUAGE = "language"
 
 class LoginFragment : Fragment()   {
-    private var paramLanguage: String? = "en"
+    val ARG_LANGUAGE = "language"
+    private var language: String = "en"
+    var viewModel = ShoeViewModel()
+    lateinit var binding: FragmentLoginBinding
 
-    private val langText = mapOf(
-        "en_create_button_title" to "Create Account",
-        "en_hint_email_address" to "Enter email address",
-        "en_hint_password" to "Enter password",
-        "en_login_button_title" to "Login",
-        "en_login_email_title" to "Email Address",
-        "en_password_title" to "Password",
-        "fr_create_button_title" to "Créer un compte",
-        "fr_hint_email_address" to "Entrer l\'adresse e-mail",
-        "fr_hint_password" to "Entrer le mot de passe",
-        "fr_login_button_title" to "l\' ouverture de session",
-        "fr_login_email_title" to "l\' adresse électronique",
-        "fr_login_email_title" to "l\' adresse électronique",
-        "fr_password_title" to "Mot de passe"
-    )
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        viewModel.language.observe(this, Observer { newLanguage ->
+            viewModel.setLanguage(newLanguage)
+            showLanguage()
+        })
+    }
 
     //Inflating and Returning the View with DataBindingUtil
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        val binding: FragmentLoginBinding = DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_login, container, false)
 
-        paramLanguage = if (savedInstanceState != null) {
-            savedInstanceState.getString(ARG_LANGUAGE)
-        } else {
-            "en"  // English is the default language
-        }
+        viewModel = ViewModelProvider(this).get(ShoeViewModel::class.java)
 
-        when (paramLanguage) {
-            "en" -> bindEnglish(binding)
-            "fr" -> bindFrench(binding)
-        }
+        showLanguage()
 
         binding.idImageFrFlag.setOnClickListener {
-            bindFrench(binding)
+            viewModel.setLanguage("fr")
+            showLanguage()
         }
 
         binding.idImageEnFlag.setOnClickListener {
-            bindEnglish(binding)
+            viewModel.setLanguage("en")
+            showLanguage()
         }
 
-        binding.idCreateButton.setOnClickListener(
-            Navigation.createNavigateOnClickListener(R.id.action_loginFragment_to_welcomeFragment))
+        binding.idCreateButton.setOnClickListener {
+            it.findNavController().navigate(
+                LoginFragmentDirections.actionLoginFragmentToWelcomeFragment(viewModel.getLanguage()))
+        }
 
-        binding.idLoginButton.setOnClickListener(
-            Navigation.createNavigateOnClickListener(R.id.action_loginFragment_to_welcomeFragment))
+        binding.idLoginButton.setOnClickListener {
+            it.findNavController().navigate(
+                LoginFragmentDirections.actionLoginFragmentToWelcomeFragment(viewModel.getLanguage()))
+        }
 
         return binding.root
     }
 
-    private fun bindFrench(binding: FragmentLoginBinding) {
-        binding.idCreateButton.text = langText["fr_create_button_title"]
-        binding.idEmailField.hint = langText["fr_hint_email_address"]
-        binding.idEmailTitle.text = langText["fr_login_email_title"]
-        binding.idLoginButton.text = langText["fr_login_button_title"]
-        binding.idPasswordField.hint = langText["fr_hint_password"]
-        binding.idPasswordTitle.text = langText["fr_password_title"]
+    private fun showLanguage() {
+        val languageMap: Map<String, String> = viewModel.getLoginMap(viewModel.getLanguage())
+
+        binding.idCreateButton.text = languageMap["create_button_title"]
+        binding.idEmailField.hint = languageMap["hint_email_address"]
+        binding.idEmailTitle.text = languageMap["login_email_title"]
+        binding.idLoginButton.text = languageMap["login_button_title"]
+        binding.idPasswordField.hint = languageMap["hint_password"]
+        binding.idPasswordTitle.text = languageMap["password_title"]
     }
 
-    private fun bindEnglish(binding: FragmentLoginBinding) {
-        binding.idCreateButton.text = langText["en_create_button_title"]
-        binding.idEmailField.hint = langText["en_hint_email_address"]
-        binding.idEmailTitle.text = langText["en_login_email_title"]
-        binding.idLoginButton.text = langText["en_login_button_title"]
-        binding.idPasswordField.hint = langText["en_hint_password"]
-        binding.idPasswordTitle.text = langText["en_password_title"]
+    companion object {
+        /**
+         * Use this factory method to create a new instance of
+         * this fragment using the provided parameters.
+         *
+         * @param pLanguage Parameter.
+         * @return A new instance of fragment LoginFragment.
+         */
+        // TODO: Rename and change types and number of parameters
+        @JvmStatic
+        fun newInstance(pLanguage: String) =
+            LoginFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_LANGUAGE, pLanguage)
+                }
+            }
     }
 }
