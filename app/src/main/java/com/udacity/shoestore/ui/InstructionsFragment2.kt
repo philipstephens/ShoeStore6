@@ -1,21 +1,18 @@
-package com.udacity.shoestore
+package com.udacity.shoestore.ui
 
-import android.content.Intent
-import android.content.Intent.ACTION_MAIN
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import com.udacity.shoestore.R
 import com.udacity.shoestore.databinding.FragmentInstructionsBinding
-import com.udacity.shoestore.databinding.FragmentWelcomeBinding
 import com.udacity.shoestore.models.ShoeViewModel
 
-class InstructionsFragment : Fragment() {
+class InstructionsFragment2 : Fragment() {
     lateinit var viewModel: ShoeViewModel
     lateinit var binding: FragmentInstructionsBinding
 
@@ -35,7 +32,7 @@ class InstructionsFragment : Fragment() {
 
         binding.listShoesButton.setOnClickListener {
             it.findNavController().navigate(
-                InstructionsFragmentDirections.actionInstructionsFragmentToShoeListActivity3()
+                InstructionsFragment2Directions.actionInstructionsFragment2ToShoeList4Fragment()
             )
         }
 

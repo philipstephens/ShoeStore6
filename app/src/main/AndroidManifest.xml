@@ -12,22 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity
-            android:name=".ShoeListActivity3"
-            android:exported="false"
-            android:label="@string/title_activity_shoe_list2"
-            android:theme="@style/AppTheme.NoActionBar.NoActionBar" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-            </intent-filter>
-        </activity>
         <!-- <activity -->
         <!-- android:name=".ShoeListActivity" -->
         <!-- android:exported="false" -->
         <!-- android:label="@string/title_activity_shoe_list" -->
         <!-- android:theme="@style/AppTheme.NoActionBar.NoActionBar" /> -->
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true"
             android:screenOrientation="unspecified">
             <intent-filter>
@@ -36,5 +27,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>

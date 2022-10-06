@@ -1,8 +1,9 @@
-package com.udacity.shoestore
+package com.udacity.shoestore.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.udacity.shoestore.R
 import com.udacity.shoestore.databinding.ActivityMainBinding
 import com.udacity.shoestore.models.ShoeViewModel
 import timber.log.Timber

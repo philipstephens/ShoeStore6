@@ -7,37 +7,33 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.udacity.shoestore.LoginFragment"
+        android:name="com.udacity.shoestore.ui.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment_to_welcomeFragment"
-            app:destination="@id/welcomeFragment" >
-            <argument
-                android:name="language"
-                app:argType="string" />
-        </action>
+            app:destination="@id/welcomeFragment" />
     </fragment>
     <fragment
         android:id="@+id/welcomeFragment"
-        android:name="com.udacity.shoestore.WelcomeFragment"
+        android:name="com.udacity.shoestore.ui.WelcomeFragment"
         android:label="fragment_welcome"
         tools:layout="@layout/fragment_welcome" >
         <action
-            android:id="@+id/action_welcomeFragment_to_instructionsFragment"
-            app:destination="@id/instructionsFragment" />
+            android:id="@+id/action_welcomeFragment_to_instructionsFragment2"
+            app:destination="@id/instructionsFragment2" />
     </fragment>
     <fragment
-        android:id="@+id/instructionsFragment"
-        android:name="com.udacity.shoestore.InstructionsFragment"
-        android:label="InstructionsFragment"
+        android:id="@+id/instructionsFragment2"
+        android:name="com.udacity.shoestore.ui.InstructionsFragment2"
+        android:label="fragment_instructions2"
         tools:layout="@layout/fragment_instructions" >
         <action
-            android:id="@+id/action_instructionsFragment_to_shoeListActivity3"
-            app:destination="@id/shoeListActivity3" />
+            android:id="@+id/action_instructionsFragment2_to_shoeList4Fragment"
+            app:destination="@id/shoeList4Fragment" />
     </fragment>
-    <activity
-        android:id="@+id/shoeListActivity3"
-        android:name="com.udacity.shoestore.ShoeListActivity3"
-        android:label="ShoeListActivity3" />
+    <fragment
+        android:id="@+id/shoeList4Fragment"
+        android:name="com.udacity.shoestore.ui.ShoeList4Fragment"
+        android:label="ShoeList4Fragment" />
 </navigation>

@@ -1,19 +1,15 @@
-package com.udacity.shoestore
+package com.udacity.shoestore.ui
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
+import com.udacity.shoestore.R
 import com.udacity.shoestore.databinding.FragmentLoginBinding
 import com.udacity.shoestore.models.ShoeViewModel
 
@@ -31,6 +27,7 @@ class LoginFragment : Fragment()   {
         viewModel.language.observe(this, Observer {
             showLanguage()
         })
+
     }
 
     //Inflating and Returning the View with DataBindingUtil
@@ -49,12 +46,13 @@ class LoginFragment : Fragment()   {
 
         binding.idCreateButton.setOnClickListener {
             it.findNavController().navigate(
-                LoginFragmentDirections.actionLoginFragmentToWelcomeFragment(viewModel.getLanguage()))
+                com.udacity.shoestore.ui.LoginFragmentDirections.actionLoginFragmentToWelcomeFragment()
+            )
         }
 
         binding.idLoginButton.setOnClickListener {
             it.findNavController().navigate(
-                LoginFragmentDirections.actionLoginFragmentToWelcomeFragment(viewModel.getLanguage()))
+                com.udacity.shoestore.ui.LoginFragmentDirections.actionLoginFragmentToWelcomeFragment())
         }
 
         showLanguage()
