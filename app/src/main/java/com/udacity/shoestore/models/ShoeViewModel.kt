@@ -9,6 +9,7 @@ class ShoeViewModel: ViewModel() {
     var loggedIn = MutableLiveData<Boolean>()
     val nullShoeDetail = Shoe("No shoes", 0.0, "Null", "Null", listOf("No images"))
 
+
     init {
         language.value = "en"
         loggedIn.value = false
@@ -19,6 +20,10 @@ class ShoeViewModel: ViewModel() {
             Shoe("Calla Easta Loafer", 10.0, "Clark's", "woman's loafer", mutableListOf("loafer1.jpg", "brown.png")),
             Shoe("Puma", 10.0, "Puma Company", "mans's runner", mutableListOf("pa1.jpg", "pa2.png"))
         )
+    }
+
+    fun onLanguageChange(_language: String) {
+        language.value = _language
     }
 
     fun getShoeList(): Array<String> {
@@ -60,8 +65,8 @@ class ShoeViewModel: ViewModel() {
         language.value = _language
     }
 
-    fun getLoginMap(_language: String) : Map<String, String> {
-        return when (_language) {
+    fun getLoginMap() : Map<String, String> {
+        return when (language.value) {
             "en" -> {
                  mapOf(
                     "create_button_title" to "Create Account",
@@ -87,8 +92,8 @@ class ShoeViewModel: ViewModel() {
         }
     }
 
-    fun getWelcomeMap(_language: String) : Map<String, String> {
-        return when (_language) {
+    fun getWelcomeMap() : Map<String, String> {
+        return when (language.value) {
             "en" -> { mapOf(
                 "welcome_heading" to "Welcome",
                 "welcome_text1" to "Welcome to the shoe store inventory application!",
@@ -115,8 +120,8 @@ class ShoeViewModel: ViewModel() {
         }
     }
 
-    fun getInstructionsMap(_language: String) : Map<String, String> {
-        return when (_language) {
+    fun getInstructionsMap() : Map<String, String> {
+        return when (language.value) {
             "en" -> { mapOf(
                 "instructions_button_text" to "List Shoes",
                 "instructions_heading" to "Instructions",

@@ -23,9 +23,6 @@
         android:name="com.udacity.shoestore.WelcomeFragment"
         android:label="fragment_welcome"
         tools:layout="@layout/fragment_welcome" >
-        <argument
-            android:name="language"
-            app:argType="string" />
         <action
             android:id="@+id/action_welcomeFragment_to_instructionsFragment"
             app:destination="@id/instructionsFragment" />
@@ -35,9 +32,6 @@
         android:name="com.udacity.shoestore.InstructionsFragment"
         android:label="InstructionsFragment"
         tools:layout="@layout/fragment_instructions" >
-        <argument
-            android:name="language"
-            app:argType="string" />
         <action
             android:id="@+id/action_instructionsFragment_to_shoeListActivity3"
             app:destination="@id/shoeListActivity3" />

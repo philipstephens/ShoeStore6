@@ -16,9 +16,13 @@ import com.udacity.shoestore.databinding.FragmentWelcomeBinding
 import com.udacity.shoestore.models.ShoeViewModel
 
 class WelcomeFragment : Fragment() {
-    val ARG_LANGUAGE = "language"
-    var viewModel = ShoeViewModel()
+    lateinit var viewModel: ShoeViewModel
     lateinit var binding: FragmentWelcomeBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(requireActivity())[ShoeViewModel::class.java]
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,25 +31,19 @@ class WelcomeFragment : Fragment() {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_welcome, container, false)
 
-        viewModel = ViewModelProvider(this)[ShoeViewModel::class.java]
-
-        arguments?.let {
-            viewModel.setLanguage(it.getString(ARG_LANGUAGE) ?: "en")
-            Toast.makeText(context, viewModel.getLanguage() , Toast.LENGTH_SHORT).show()
-            showLanguage()
-        }
-
         binding.idInstructionsButton.setOnClickListener {
             it.findNavController().navigate(
-                WelcomeFragmentDirections.actionWelcomeFragmentToInstructionsFragment(viewModel.getLanguage())
+                WelcomeFragmentDirections.actionWelcomeFragmentToInstructionsFragment()
             )
         }
+
+        showLanguage()
 
         return binding.root
     }
 
     private fun showLanguage() {
-        val languageMap: Map<String, String> = viewModel.getWelcomeMap(viewModel.getLanguage())
+        val languageMap: Map<String, String> = viewModel.getWelcomeMap()
 
         binding.idWelcomeTextHeading.text = languageMap["welcome_heading"]
         binding.idWelcomeText1.text = languageMap["welcome_text1"]

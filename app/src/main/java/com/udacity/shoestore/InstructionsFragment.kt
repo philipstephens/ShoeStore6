@@ -16,9 +16,13 @@ import com.udacity.shoestore.databinding.FragmentWelcomeBinding
 import com.udacity.shoestore.models.ShoeViewModel
 
 class InstructionsFragment : Fragment() {
-    val ARG_LANGUAGE = "language"
-    var viewModel = ShoeViewModel()
+    lateinit var viewModel: ShoeViewModel
     lateinit var binding: FragmentInstructionsBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(requireActivity())[ShoeViewModel::class.java]
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,25 +33,19 @@ class InstructionsFragment : Fragment() {
             inflater, R.layout.fragment_instructions, container, false
         )
 
-        viewModel = ViewModelProvider(this)[ShoeViewModel::class.java]
-
-        arguments?.let {
-            viewModel.setLanguage(it.getString(ARG_LANGUAGE) ?: "en")
-            Toast.makeText(context, viewModel.getLanguage() , Toast.LENGTH_SHORT).show()
-            showLanguage()
-        }
-
         binding.listShoesButton.setOnClickListener {
             it.findNavController().navigate(
                 InstructionsFragmentDirections.actionInstructionsFragmentToShoeListActivity3()
             )
         }
 
+        showLanguage()
+
         return binding.root
     }
 
     private fun showLanguage() {
-        val languageMap: Map<String, String> = viewModel.getInstructionsMap(viewModel.getLanguage())
+        val languageMap: Map<String, String> = viewModel.getInstructionsMap()
 
         binding.listShoesButton.text = languageMap["instructions_button_text"]
         binding.idInstructionsHeading.text = languageMap["instructions_heading"]
@@ -56,4 +54,3 @@ class InstructionsFragment : Fragment() {
         binding.idInstructionsText3.text = languageMap["instructions_text3"]
     }
 }
-

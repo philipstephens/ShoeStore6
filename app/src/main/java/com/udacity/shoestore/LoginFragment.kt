@@ -20,16 +20,15 @@ import com.udacity.shoestore.models.ShoeViewModel
 // default language: English
 
 class LoginFragment : Fragment()   {
-    val ARG_LANGUAGE = "language"
-    private var language: String = "en"
-    var viewModel = ShoeViewModel()
+    lateinit var viewModel: ShoeViewModel
     lateinit var binding: FragmentLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel.language.observe(this, Observer { newLanguage ->
-            viewModel.setLanguage(newLanguage)
+        viewModel = ViewModelProvider(requireActivity()).get(ShoeViewModel::class.java)
+
+        viewModel.language.observe(this, Observer {
             showLanguage()
         })
     }
@@ -40,18 +39,12 @@ class LoginFragment : Fragment()   {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_login, container, false)
 
-        viewModel = ViewModelProvider(this).get(ShoeViewModel::class.java)
-
-        showLanguage()
-
         binding.idImageFrFlag.setOnClickListener {
-            viewModel.setLanguage("fr")
-            showLanguage()
+            viewModel.language.value = "fr"
         }
 
         binding.idImageEnFlag.setOnClickListener {
-            viewModel.setLanguage("en")
-            showLanguage()
+            viewModel.language.value = "en"
         }
 
         binding.idCreateButton.setOnClickListener {
@@ -64,11 +57,13 @@ class LoginFragment : Fragment()   {
                 LoginFragmentDirections.actionLoginFragmentToWelcomeFragment(viewModel.getLanguage()))
         }
 
+        showLanguage()
+
         return binding.root
     }
 
     private fun showLanguage() {
-        val languageMap: Map<String, String> = viewModel.getLoginMap(viewModel.getLanguage())
+        val languageMap: Map<String, String> = viewModel.getLoginMap()
 
         binding.idCreateButton.text = languageMap["create_button_title"]
         binding.idEmailField.hint = languageMap["hint_email_address"]
@@ -76,23 +71,5 @@ class LoginFragment : Fragment()   {
         binding.idLoginButton.text = languageMap["login_button_title"]
         binding.idPasswordField.hint = languageMap["hint_password"]
         binding.idPasswordTitle.text = languageMap["password_title"]
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param pLanguage Parameter.
-         * @return A new instance of fragment LoginFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(pLanguage: String) =
-            LoginFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_LANGUAGE, pLanguage)
-                }
-            }
     }
 }

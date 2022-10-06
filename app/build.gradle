@@ -61,6 +61,8 @@ dependencies {
         implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
         // Testing Navigation
         // androidTestImplementation
+        implementation 'androidx.fragment:fragment-ktx:1.1.0'
+
         implementation 'com.jakewharton.timber:timber:4.7.1'
         testImplementation 'junit:junit:4.12'
         androidTestImplementation 'androidx.test.ext:junit:1.1.1'
