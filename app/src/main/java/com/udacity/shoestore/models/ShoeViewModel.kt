@@ -57,14 +57,6 @@ class ShoeViewModel: ViewModel() {
         return loggedIn.value ?: false
     }
 
-    fun getLanguage(): String {
-        return language.value ?: "en"
-    }
-
-    fun setLanguage(_language: String) {
-        language.value = _language
-    }
-
     fun getLoginMap() : Map<String, String> {
         return when (language.value) {
             "en" -> {
