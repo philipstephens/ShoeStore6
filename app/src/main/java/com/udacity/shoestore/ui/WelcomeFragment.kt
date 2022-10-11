@@ -30,7 +30,7 @@ class WelcomeFragment : Fragment() {
 
         binding.idInstructionsButton.setOnClickListener {
             it.findNavController().navigate(
-                com.udacity.shoestore.ui.WelcomeFragmentDirections.actionWelcomeFragmentToInstructionsFragment2()
+                WelcomeFragmentDirections.actionWelcomeFragmentToInstructionsFragment2()
             )
         }
 

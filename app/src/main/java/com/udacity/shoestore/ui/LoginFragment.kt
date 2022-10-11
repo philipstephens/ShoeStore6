@@ -46,13 +46,13 @@ class LoginFragment : Fragment()   {
 
         binding.idCreateButton.setOnClickListener {
             it.findNavController().navigate(
-                com.udacity.shoestore.ui.LoginFragmentDirections.actionLoginFragmentToWelcomeFragment()
+                LoginFragmentDirections.actionLoginFragmentToWelcomeFragment()
             )
         }
 
         binding.idLoginButton.setOnClickListener {
             it.findNavController().navigate(
-                com.udacity.shoestore.ui.LoginFragmentDirections.actionLoginFragmentToWelcomeFragment())
+                LoginFragmentDirections.actionLoginFragmentToWelcomeFragment())
         }
 
         showLanguage()

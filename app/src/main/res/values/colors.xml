@@ -6,4 +6,8 @@
     <color name="colorTitle">#FFFF00</color>
     <color name="colorEditBox">#DDDDDD</color>
     <color name="colorHints">#f4f7aa</color>
+    <color name="colorHeading1">#FFFF00</color>
+    <color name="colorHeading2">#F4F7AA</color>
+    <color name="colorTest1">#000000</color>
+    <color name="colorTest2">#FFFFFF</color>
 </resources>

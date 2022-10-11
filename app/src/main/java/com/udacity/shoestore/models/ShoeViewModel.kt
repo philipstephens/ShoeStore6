@@ -2,13 +2,15 @@ package com.udacity.shoestore.models
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import timber.log.Timber
 
 class ShoeViewModel: ViewModel() {
     var language = MutableLiveData<String>()
     var shoeListData = MutableLiveData<ArrayList<Shoe>>()
     var loggedIn = MutableLiveData<Boolean>()
-    val nullShoeDetail = Shoe("No shoes", 0.0, "Null", "Null", listOf("No images"))
-
+    val nullShoeDetail = Shoe("_", 0.0, "_", "_", emptyList())
+    var tempShoeData = MutableLiveData<Shoe>()
+    var dirtyShoeList = MutableLiveData<Boolean>()
 
     init {
         language.value = "en"
@@ -20,10 +22,17 @@ class ShoeViewModel: ViewModel() {
             Shoe("Calla Easta Loafer", 10.0, "Clark's", "woman's loafer", mutableListOf("loafer1.jpg", "brown.png")),
             Shoe("Puma", 10.0, "Puma Company", "mans's runner", mutableListOf("pa1.jpg", "pa2.png"))
         )
+        tempShoeData.value = nullShoeDetail
+        dirtyShoeList.value = false
     }
 
     fun onLanguageChange(_language: String) {
         language.value = _language
+    }
+
+    fun onShoeListDataChange() {
+        dirtyShoeList.value = false
+        clearTempForm()
     }
 
     fun getShoeList(): Array<String> {
@@ -33,10 +42,14 @@ class ShoeViewModel: ViewModel() {
             return emptyArray()
         }
 
+        Timber.d("***** Debug Message: Hello!")
+
         for (shoe in shoeListData.value!!) {
-            shoeList.plusElement(shoe.name)
+            Timber.d(shoe.toString())
+            shoeList = shoeList.plusElement(shoe.name)
         }
 
+        Timber.d("size: ${shoeList.size}")
         return shoeList
     }
 
@@ -130,5 +143,94 @@ class ShoeViewModel: ViewModel() {
 
             else -> emptyMap()
         }
+    }
+
+    fun getNameListMap() : Map<String, String> {
+        return when (language.value) {
+            "en" -> { mapOf(
+                "list_shoes_text_heading" to "List of Shoes",
+                "name_heading" to "Names") }
+            "fr" -> { mapOf(
+                "list_shoes_text_heading" to "Liste des chaussures",
+                "name_heading" to "Les noms") }
+            else -> emptyMap()
+        }
+    }
+
+    fun getDetailMap() : Map<String, String> {
+        return when (language.value) {
+            "en" -> { mapOf(
+                "cancel_button_text" to "Cancel",
+                "save_button_text" to "Save") }
+            "fr" -> { mapOf(
+                "cancel_button_text" to "Annuler",
+                "save_button_text" to "Sauver"
+            ) }
+            else -> emptyMap()
+        }
+    }
+
+    fun getDetailHeadingArray() : Array<String> {
+        return when (language.value) {
+            "en" -> { arrayOf( "Name of Shoe", "Company Name", "Shoe Size", "Description") }
+            "fr" -> { arrayOf( "Nom de la chaussure", "Nom de l'entreprise", "Taille des chaussures", "Description") }
+            else -> emptyArray()
+        }
+    }
+
+    fun getMaxDetailHeadingSize() : Int {
+        return getDetailHeadingArray().maxOf { x -> x.length }
+    }
+
+    fun isUnique(_name: String): Boolean {
+        for (shoe:Shoe in shoeListData.value!!) {
+            if (_name == shoe.name) return false
+        }
+        return true
+    }
+
+    fun saveNewDetailForm(_tempShoeData: Shoe) {
+        if (!(_tempShoeData.name.startsWith("_")) && isUnique(_tempShoeData.name)) {
+            // More robust checks can be made
+            shoeListData.value?.add(_tempShoeData)
+        }
+    }
+
+    fun clearTempForm() {
+        tempShoeData.value = nullShoeDetail
+    }
+
+    fun setFormData(_index: Int) {
+        if (_index in 0..shoeListData.value!!.lastIndex) {
+            tempShoeData.value = shoeListData.value!![_index]
+            dirtyShoeList.value = false
+        }
+    }
+
+    fun checkDefaults(_tempShoeData: Shoe):Boolean {
+        if ((_tempShoeData.name != "_") &&
+            (_tempShoeData.size != 0.0) &&
+            (_tempShoeData.company != "_") &&
+            (_tempShoeData.description != "_"))
+            return true
+        else
+            return false
+    }
+
+    fun saveEditedForm(_tempShoeData: Shoe, _index: Int) {
+        if (shoeListData.value?.size == 0) {
+            if (checkDefaults(_tempShoeData)) saveNewDetailForm(_tempShoeData)
+            return
+        }
+
+        if (_index >= 0 && _index <= shoeListData.value!!.lastIndex)
+            // If any changes were made then save the form to the array
+            if (isDirtyShoeList() && checkDefaults(_tempShoeData)) {
+                shoeListData.value!![_index] = _tempShoeData
+            }
+    }
+
+    fun isDirtyShoeList():Boolean {
+        return dirtyShoeList.value == true
     }
 }
