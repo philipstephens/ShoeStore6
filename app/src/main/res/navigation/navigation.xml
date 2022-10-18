@@ -46,5 +46,8 @@
         android:name="com.udacity.shoestore.ui.ShoeDetail2Fragment"
         android:label="ShoeDetail2Fragment"
         tools:layout="@layout/fragment_shoe_detail2">
+        <action
+            android:id="@+id/action_shoeDetail2Fragment_to_shoeList4Fragment"
+            app:destination="@id/shoeList4Fragment" />
     </fragment>
 </navigation>

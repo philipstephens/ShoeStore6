@@ -8,7 +8,7 @@ class ShoeViewModel: ViewModel() {
     var language = MutableLiveData<String>()
     var shoeListData = MutableLiveData<ArrayList<Shoe>>()
     var loggedIn = MutableLiveData<Boolean>()
-    val nullShoeDetail = Shoe("_", 0.0, "_", "_", emptyList())
+    val nullShoeDetail = Shoe("", 0.0, "", "", emptyList())
     var tempShoeData = MutableLiveData<Shoe>()
     var dirtyShoeList = MutableLiveData<Boolean>()
 
@@ -20,19 +20,20 @@ class ShoeViewModel: ViewModel() {
             Shoe("Adidas", 7.3, "Adios", "man's runner", mutableListOf("runner2.png")),
             Shoe("Girotti", 5.8, "Oxford Shoes", "luxury man's shoe", mutableListOf("17342.jpg")),
             Shoe("Calla Easta Loafer", 10.0, "Clark's", "woman's loafer", mutableListOf("loafer1.jpg", "brown.png")),
-            Shoe("Puma", 10.0, "Puma Company", "mans's runner", mutableListOf("pa1.jpg", "pa2.png"))
+            Shoe("Puma", 10.0, "Puma Company", "mans's runner", mutableListOf("pa1.jpg", "pa2.png")),
+            Shoe("Nike2", 10.0, "Nike Company", "man's runner", mutableListOf("Nike.jpg", "Joe.png")),
+            Shoe("Adidas2", 7.3, "Adios", "man's runner", mutableListOf("runner2.png")),
+            Shoe("Girotti2", 5.8, "Oxford Shoes", "luxury man's shoe", mutableListOf("17342.jpg")),
+            Shoe("Calla Easta Loafer2", 10.0, "Clark's", "woman's loafer", mutableListOf("loafer1.jpg", "brown.png")),
+            Shoe("Puma2", 10.0, "Puma Company", "mans's runner", mutableListOf("pa1.jpg", "pa2.png")),
+            Shoe("Nike3", 10.0, "Nike Company", "man's runner", mutableListOf("Nike.jpg", "Joe.png")),
+            Shoe("Adidas3", 7.3, "Adios", "man's runner", mutableListOf("runner2.png")),
+            Shoe("Girotti3", 5.8, "Oxford Shoes", "luxury man's shoe", mutableListOf("17342.jpg")),
+            Shoe("Calla Easta Loafer3", 10.0, "Clark's", "woman's loafer", mutableListOf("loafer1.jpg", "brown.png")),
+            Shoe("Puma3", 10.0, "Puma Company", "mans's runner", mutableListOf("pa1.jpg", "pa2.png"))
         )
         tempShoeData.value = nullShoeDetail
         dirtyShoeList.value = false
-    }
-
-    fun onLanguageChange(_language: String) {
-        language.value = _language
-    }
-
-    fun onShoeListDataChange() {
-        dirtyShoeList.value = false
-        clearTempForm()
     }
 
     fun getShoeList(): Array<String> {
@@ -178,59 +179,47 @@ class ShoeViewModel: ViewModel() {
         }
     }
 
-    fun getMaxDetailHeadingSize() : Int {
-        return getDetailHeadingArray().maxOf { x -> x.length }
-    }
-
-    fun isUnique(_name: String): Boolean {
-        for (shoe:Shoe in shoeListData.value!!) {
-            if (_name == shoe.name) return false
-        }
-        return true
-    }
-
-    fun saveNewDetailForm(_tempShoeData: Shoe) {
-        if (!(_tempShoeData.name.startsWith("_")) && isUnique(_tempShoeData.name)) {
-            // More robust checks can be made
-            shoeListData.value?.add(_tempShoeData)
-        }
-    }
-
     fun clearTempForm() {
         tempShoeData.value = nullShoeDetail
+        dirtyShoeList.value = false
     }
 
     fun setFormData(_index: Int) {
         if (_index in 0..shoeListData.value!!.lastIndex) {
             tempShoeData.value = shoeListData.value!![_index]
-            dirtyShoeList.value = false
         }
     }
 
-    fun checkDefaults(_tempShoeData: Shoe):Boolean {
-        if ((_tempShoeData.name != "_") &&
-            (_tempShoeData.size != 0.0) &&
-            (_tempShoeData.company != "_") &&
-            (_tempShoeData.description != "_"))
-            return true
-        else
-            return false
-    }
+    fun saveEditedForm(_name: String, _company: String, _size: String, _description: String) {
+        tempShoeData.value?.name = _name
+        tempShoeData.value?.company = _company
+        tempShoeData.value?.size = _size.toDouble()
+        tempShoeData.value?.description = _description
+        tempShoeData.value?.images = emptyList()
 
-    fun saveEditedForm(_tempShoeData: Shoe, _index: Int) {
-        if (shoeListData.value?.size == 0) {
-            if (checkDefaults(_tempShoeData)) saveNewDetailForm(_tempShoeData)
-            return
-        }
-
-        if (_index >= 0 && _index <= shoeListData.value!!.lastIndex)
-            // If any changes were made then save the form to the array
-            if (isDirtyShoeList() && checkDefaults(_tempShoeData)) {
-                shoeListData.value!![_index] = _tempShoeData
+        if (shoeListData.value?.isEmpty() == true) {
+            if(_name.trim() != "") {
+                tempShoeData.value?.let { shoeListData.value?.add(it) }
+                return
             }
-    }
+        }
 
-    fun isDirtyShoeList():Boolean {
-        return dirtyShoeList.value == true
+        var found = false
+        var index = 0
+
+        for(i in 0..shoeListData.value!!.lastIndex) {
+            if (_name == shoeListData.value?.get(i)?.name) {
+                index = i
+                found = true
+            }
+        }
+
+        if (found) {
+            shoeListData.value!![index] = tempShoeData.value!!
+        } else {
+            if (_name.trim() != "") {
+                tempShoeData.value?.let { shoeListData.value?.add(it) }
+            }
+        }
     }
 }

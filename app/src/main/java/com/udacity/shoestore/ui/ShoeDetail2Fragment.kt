@@ -6,12 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import com.udacity.shoestore.R
 import com.udacity.shoestore.databinding.FragmentShoeDetail2Binding
-import com.udacity.shoestore.databinding.FragmentShoeDetailBindingImpl
-import com.udacity.shoestore.databinding.FragmentWelcomeBinding
 import com.udacity.shoestore.models.ShoeViewModel
+import timber.log.Timber
 
 class ShoeDetail2Fragment : Fragment() {
 
@@ -21,6 +22,10 @@ class ShoeDetail2Fragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(requireActivity())[ShoeViewModel::class.java]
+
+        viewModel.dirtyShoeList.observe(requireActivity(), Observer {
+            Timber.d("Shoe List Observed")
+        })
     }
 
     override fun onCreateView(
@@ -32,17 +37,58 @@ class ShoeDetail2Fragment : Fragment() {
         )
 
         binding.detailNameHeading.text = viewModel.getDetailHeadingArray()[0]
-        binding.detailNameData.hint = viewModel.tempShoeData.value?.name
+        binding.detailNameData.hint = viewModel.getDetailHeadingArray()[0]
+        binding.detailNameData.setText(viewModel.tempShoeData.value?.name)
 
-        binding.detailSizeHeading.text = viewModel.getDetailHeadingArray()[1]
-        binding.detailSizeData.hint = viewModel.tempShoeData.value?.size.toString()
+        binding.detailCompanyHeading.text = viewModel.getDetailHeadingArray()[1]
+        binding.detailCompanyData.hint = viewModel.getDetailHeadingArray()[1]
+        binding.detailCompanyData.setText(viewModel.tempShoeData.value?.company)
 
-        binding.detailCompanyHeading.text = viewModel.getDetailHeadingArray()[2]
-        binding.detailCompanyData.hint = viewModel.tempShoeData.value?.company
+        binding.detailSizeHeading.text = viewModel.getDetailHeadingArray()[2]
+        binding.detailSizeHeading.hint = viewModel.getDetailHeadingArray()[2]
+        binding.detailSizeData.setText(viewModel.tempShoeData.value?.size.toString())
 
         binding.detailDescriptionHeading.text = viewModel.getDetailHeadingArray()[3]
-        binding.detailDescriptionData.hint = viewModel.tempShoeData.value?.description
+        binding.detailDescriptionHeading.hint = viewModel.getDetailHeadingArray()[3]
+        binding.detailDescriptionData.setText(viewModel.tempShoeData.value?.description)
 
+        showLanguage()
         return binding.root
+    }
+
+    private fun showLanguage() {
+        val languageMap: Map<String, String> = viewModel.getDetailMap()
+
+        binding.detailSaveButton.setText(languageMap["save_button_text"])
+        binding.detailCancelButton.setText(languageMap["cancel_button_text"])
+        Timber.d("button1: ${binding.detailSaveButton.text}")
+        Timber.d("button2: ${binding.detailCancelButton.text}")
+
+        binding.detailSaveButton.setOnClickListener {
+            Timber.d("Called detailSaveButton")
+            viewModel.saveEditedForm(binding.detailNameData.text.toString(),
+                                    binding.detailCompanyData.text.toString(),
+                                    binding.detailSizeData.text.toString(),
+                                    binding.detailDescriptionData.text.toString())
+
+            viewModel.dirtyShoeList.value = true
+            viewModel.clearTempForm()
+            debug_showTemp()
+
+            it.findNavController().navigate(
+                ShoeDetail2FragmentDirections.actionShoeDetail2FragmentToShoeList4Fragment()
+            )
+        }
+
+        binding.detailCancelButton.setOnClickListener {
+            it.findNavController().navigate(
+                ShoeDetail2FragmentDirections.actionShoeDetail2FragmentToShoeList4Fragment()
+            )
+        }
+    }
+
+    fun debug_showTemp() {
+        Timber.d("************************************")
+        Timber.d(viewModel.tempShoeData.value.toString())
     }
 }

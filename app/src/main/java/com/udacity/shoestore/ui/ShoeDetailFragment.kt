@@ -79,7 +79,7 @@ class ShoeDetailFragment : Fragment() {
     }
 
     fun setTextViewData(_text: String, _textSize: Int, _textColor: Int): TextView {
-        val width = maxHeadingSize(viewModel)
+        val width = LinearLayout.LayoutParams.MATCH_PARENT
         val height = LinearLayout.LayoutParams.MATCH_PARENT
         val layoutParams = LinearLayout.LayoutParams(width, height)
 
@@ -93,16 +93,4 @@ class ShoeDetailFragment : Fragment() {
             typeface = Typeface.defaultFromStyle(Typeface.BOLD)
         }
     }
-
-    fun maxHeadingSize(vm: ViewModel):Int {
-        val width1 = viewModel.getDetailHeadingArray()[0].length *
-                requireContext().resources.getDimensionPixelSize(R.dimen.heading1)
-
-        val width2 = viewModel.getMaxDetailHeadingSize() *
-                requireContext().resources.getDimensionPixelSize(R.dimen.heading2)
-
-        return maxOf(width1, width2)
-    }
-
-
 }

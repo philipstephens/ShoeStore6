@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
+    <color name="black">#FF000000</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="colorTitle">#FFFF00</color>
     <color name="colorEditBox">#DDDDDD</color>
-    <color name="colorHints">#f4f7aa</color>
     <color name="colorHeading1">#FFFF00</color>
     <color name="colorHeading2">#F4F7AA</color>
+    <color name="colorHints">#f4f7aa</color>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
     <color name="colorTest1">#000000</color>
     <color name="colorTest2">#FFFFFF</color>
+    <color name="colorTitle">#FFFF00</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="white">#FFFFFFFF</color>
 </resources>

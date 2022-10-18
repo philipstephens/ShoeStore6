@@ -18,4 +18,5 @@
     <dimen name="sneaker_image_width">202dp</dimen>
     <dimen name="sneaker_image_height">142dp</dimen>
     <dimen name="view_field_gap">8dp</dimen>
+    <dimen name="actionBarSize">40dp</dimen>
 </resources>
