@@ -5,7 +5,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/drawer_layout"
-        android:background="#FF00FF"
         android:fitsSystemWindows="true">
 
         <androidx.appcompat.widget.Toolbar
@@ -13,7 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/actionBarSize"
             android:background="@color/colorPrimary"
-            app:popupTheme="@style/Theme.ToolBarDrawer.AppBarOverlay" />
+            app:popupTheme="@style/Theme.ToolBarDrawer" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/myNavHostFragment"
