@@ -26,6 +26,7 @@ class ShoeDetail2Fragment : Fragment() {
         viewModel.dirtyShoeList.observe(requireActivity(), Observer {
             Timber.d("Shoe List Observed")
         })
+
     }
 
     override fun onCreateView(
@@ -53,6 +54,8 @@ class ShoeDetail2Fragment : Fragment() {
         binding.detailDescriptionData.setText(viewModel.tempShoeData.value?.description)
 
         showLanguage()
+
+
         return binding.root
     }
 
@@ -86,6 +89,8 @@ class ShoeDetail2Fragment : Fragment() {
             )
         }
     }
+
+
 
     fun debug_showTemp() {
         Timber.d("************************************")

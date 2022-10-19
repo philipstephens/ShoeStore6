@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ToolBarDrawer.AppBarOverlay"
+        android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
         tools:ignore="GoogleAppIndexingWarning">
         <!-- <activity -->
         <!-- android:name=".ShoeListActivity" -->

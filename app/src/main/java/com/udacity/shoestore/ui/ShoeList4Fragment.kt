@@ -92,4 +92,10 @@ class ShoeList4Fragment : Fragment() {
             )
         }
     }
+
+    override fun someFunction() {
+        requireActivity().findNavController().navigate(
+            ShoeList4FragmentDirections.actionShoeList4FragmentToLoginFragment()
+        )
+    }
 }

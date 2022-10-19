@@ -1,10 +1,8 @@
 package com.udacity.shoestore.ui
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -33,6 +31,7 @@ class WelcomeFragment : Fragment() {
                 WelcomeFragmentDirections.actionWelcomeFragmentToInstructionsFragment2()
             )
         }
+
 
         showLanguage()
 

@@ -164,7 +164,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/view_margin_start"
-            android:layout_marginBottom="@dimen/view_margin_bottom"
+            android:layout_marginBottom="@dimen/view_margin_bottom3"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:orientation="horizontal">

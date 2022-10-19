@@ -28,15 +28,15 @@ class MainActivity : AppCompatActivity() {
         Timber.plant(Timber.DebugTree())
 
         setContentView(binding.root)
-        setSupportActionBar(binding.toolbar)
 
         navHostFragment =
             supportFragmentManager.findFragmentById(R.id.myNavHostFragment) as NavHostFragment
         navController = navHostFragment.findNavController()
         appBarConfiguration = AppBarConfiguration(navController.graph, binding.drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
+    }
 
-        supportActionBar?.setDisplayShowTitleEnabled(true)
-        binding.toolbar.setupWithNavController(navController, appBarConfiguration)
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 }
