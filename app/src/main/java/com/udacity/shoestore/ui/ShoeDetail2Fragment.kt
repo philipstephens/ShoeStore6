@@ -1,11 +1,10 @@
 package com.udacity.shoestore.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -13,6 +12,8 @@ import com.udacity.shoestore.R
 import com.udacity.shoestore.databinding.FragmentShoeDetail2Binding
 import com.udacity.shoestore.models.ShoeViewModel
 import timber.log.Timber
+import java.time.Duration
+
 
 class ShoeDetail2Fragment : Fragment() {
 
@@ -23,10 +24,9 @@ class ShoeDetail2Fragment : Fragment() {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(requireActivity())[ShoeViewModel::class.java]
 
-        viewModel.dirtyShoeList.observe(requireActivity(), Observer {
-            Timber.d("Shoe List Observed")
+        viewModel.shoeListData.observe(requireActivity(), Observer {
+            Toast.makeText(context, "Shoe List Observed", Toast.LENGTH_LONG).show()
         })
-
     }
 
     override fun onCreateView(
@@ -74,9 +74,7 @@ class ShoeDetail2Fragment : Fragment() {
                                     binding.detailSizeData.text.toString(),
                                     binding.detailDescriptionData.text.toString())
 
-            viewModel.dirtyShoeList.value = true
             viewModel.clearTempForm()
-            debug_showTemp()
 
             it.findNavController().navigate(
                 ShoeDetail2FragmentDirections.actionShoeDetail2FragmentToShoeList4Fragment()
@@ -88,12 +86,5 @@ class ShoeDetail2Fragment : Fragment() {
                 ShoeDetail2FragmentDirections.actionShoeDetail2FragmentToShoeList4Fragment()
             )
         }
-    }
-
-
-
-    fun debug_showTemp() {
-        Timber.d("************************************")
-        Timber.d(viewModel.tempShoeData.value.toString())
     }
 }

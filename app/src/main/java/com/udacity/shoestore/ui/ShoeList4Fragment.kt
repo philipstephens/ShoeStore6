@@ -3,15 +3,16 @@ package com.udacity.shoestore.ui
 import android.graphics.Typeface
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
+import androidx.navigation.ui.onNavDestinationSelected
 import com.udacity.shoestore.R
 import com.udacity.shoestore.databinding.FragmentShoeList4Binding
 import com.udacity.shoestore.models.ShoeViewModel
@@ -68,6 +69,24 @@ class ShoeList4Fragment : Fragment() {
         }
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.shoe_list_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                if(menuItem.itemId == R.id.mi_logout) {
+                   view.findNavController().navigate(
+                       ShoeList4FragmentDirections.actionShoeList4FragmentToLoginFragment()
+                   )
+                }
+                return true
+            }
+        }, viewLifecycleOwner)
+    }
+
     fun setTextViewData(_text: String): TextView {
         return TextView(requireActivity()).apply {
             layoutParams = LinearLayout.LayoutParams(
@@ -91,11 +110,5 @@ class ShoeList4Fragment : Fragment() {
                 ShoeList4FragmentDirections.actionShoeList4FragmentToShoeDetail2Fragment()
             )
         }
-    }
-
-    override fun someFunction() {
-        requireActivity().findNavController().navigate(
-            ShoeList4FragmentDirections.actionShoeList4FragmentToLoginFragment()
-        )
     }
 }

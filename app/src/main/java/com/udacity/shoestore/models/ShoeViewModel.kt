@@ -7,33 +7,15 @@ import timber.log.Timber
 class ShoeViewModel: ViewModel() {
     var language = MutableLiveData<String>()
     var shoeListData = MutableLiveData<ArrayList<Shoe>>()
-    var loggedIn = MutableLiveData<Boolean>()
     val nullShoeDetail = Shoe("", 0.0, "", "", emptyList())
     var tempShoeData = MutableLiveData<Shoe>()
-    var dirtyShoeList = MutableLiveData<Boolean>()
 
     init {
         language.value = "en"
-        loggedIn.value = false
         shoeListData.value = arrayListOf<Shoe>(
-            Shoe("Nike", 10.0, "Nike Company", "man's runner", mutableListOf("Nike.jpg", "Joe.png")),
-            Shoe("Adidas", 7.3, "Adios", "man's runner", mutableListOf("runner2.png")),
-            Shoe("Girotti", 5.8, "Oxford Shoes", "luxury man's shoe", mutableListOf("17342.jpg")),
-            Shoe("Calla Easta Loafer", 10.0, "Clark's", "woman's loafer", mutableListOf("loafer1.jpg", "brown.png")),
-            Shoe("Puma", 10.0, "Puma Company", "mans's runner", mutableListOf("pa1.jpg", "pa2.png")),
-            Shoe("Nike2", 10.0, "Nike Company", "man's runner", mutableListOf("Nike.jpg", "Joe.png")),
-            Shoe("Adidas2", 7.3, "Adios", "man's runner", mutableListOf("runner2.png")),
-            Shoe("Girotti2", 5.8, "Oxford Shoes", "luxury man's shoe", mutableListOf("17342.jpg")),
-            Shoe("Calla Easta Loafer2", 10.0, "Clark's", "woman's loafer", mutableListOf("loafer1.jpg", "brown.png")),
-            Shoe("Puma2", 10.0, "Puma Company", "mans's runner", mutableListOf("pa1.jpg", "pa2.png")),
-            Shoe("Nike3", 10.0, "Nike Company", "man's runner", mutableListOf("Nike.jpg", "Joe.png")),
-            Shoe("Adidas3", 7.3, "Adios", "man's runner", mutableListOf("runner2.png")),
-            Shoe("Girotti3", 5.8, "Oxford Shoes", "luxury man's shoe", mutableListOf("17342.jpg")),
-            Shoe("Calla Easta Loafer3", 10.0, "Clark's", "woman's loafer", mutableListOf("loafer1.jpg", "brown.png")),
-            Shoe("Puma3", 10.0, "Puma Company", "mans's runner", mutableListOf("pa1.jpg", "pa2.png"))
+            Shoe("Nike", 10.0, "Nike Company", "man's runner", mutableListOf("Nike.jpg", "Joe.png"))
         )
         tempShoeData.value = nullShoeDetail
-        dirtyShoeList.value = false
     }
 
     fun getShoeList(): Array<String> {
@@ -61,14 +43,6 @@ class ShoeViewModel: ViewModel() {
             if ((i >= 0) && (i <= shoeListSize-1)) return shoeListData.value?.get(i) ?: nullShoeDetail
         }
         return nullShoeDetail
-    }
-
-    fun setLogin() {
-        loggedIn.value = true
-    }
-
-    fun getLogin():Boolean {
-        return loggedIn.value ?: false
     }
 
     fun getLoginMap() : Map<String, String> {
@@ -181,7 +155,6 @@ class ShoeViewModel: ViewModel() {
 
     fun clearTempForm() {
         tempShoeData.value = nullShoeDetail
-        dirtyShoeList.value = false
     }
 
     fun setFormData(_index: Int) {
