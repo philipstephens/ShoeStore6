@@ -24,7 +24,7 @@ class ShoeDetail2Fragment : Fragment() {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(requireActivity())[ShoeViewModel::class.java]
 
-        viewModel.shoeListData.observe(requireActivity(), Observer {
+        viewModel.shoeListDataValue.observe(requireActivity(), Observer {
             Toast.makeText(context, "Shoe List Observed", Toast.LENGTH_LONG).show()
         })
     }

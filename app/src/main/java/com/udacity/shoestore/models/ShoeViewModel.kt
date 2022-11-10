@@ -1,21 +1,56 @@
 package com.udacity.shoestore.models
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import timber.log.Timber
 
-class ShoeViewModel: ViewModel() {
-    var language = MutableLiveData<String>()
-    var shoeListData = MutableLiveData<ArrayList<Shoe>>()
+class ShoeViewModel(_language: String): ViewModel() {
+    private var language = MutableLiveData<String>()
+    val languageValue: LiveData<String>
+    get() = language
+
+    private var shoeListData = MutableLiveData<ArrayList<Shoe>>()
+    val shoeListDataValue: LiveData<ArrayList<Shoe>>
+    get() = shoeListData
+
     val nullShoeDetail = Shoe("", 0.0, "", "", emptyList())
     var tempShoeData = MutableLiveData<Shoe>()
 
     init {
-        language.value = "en"
+        language.value = _language
         shoeListData.value = arrayListOf<Shoe>(
             Shoe("Nike", 10.0, "Nike Company", "man's runner", mutableListOf("Nike.jpg", "Joe.png"))
         )
-        tempShoeData.value = nullShoeDetail
+    }
+
+    fun setLanguage(_language: String) {
+        when(_language) {
+            "en" -> language.value = "en"
+            "fr" -> language.value = "fr"
+            else -> language.value = "en"
+        }
+    }
+
+    fun updateShoeList(shoe: Shoe){
+        var found = false
+        var i = 0
+
+        if (shoe.name.trim() == "") return
+
+        if (shoeListData.value!!.isEmpty()) {
+            shoeListData.value!!.add(shoe)
+            return
+        }
+
+        for ( s in shoeListData.value!! ) {
+            if (s.name == shoe.name) {
+                shoeListData.value!![i] = shoe
+                return
+            }
+        }
+
+        shoeListData.value!!.add(shoe)
     }
 
     fun getShoeList(): Array<String> {

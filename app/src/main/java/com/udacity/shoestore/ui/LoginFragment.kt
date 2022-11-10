@@ -12,22 +12,25 @@ import androidx.navigation.findNavController
 import com.udacity.shoestore.R
 import com.udacity.shoestore.databinding.FragmentLoginBinding
 import com.udacity.shoestore.models.ShoeViewModel
+import com.udacity.shoestore.models.ShoeViewModelFactory
 
 // default language: English
 
 class LoginFragment : Fragment()   {
-    lateinit var viewModel: ShoeViewModel
+    lateinit var shoeViewModel: ShoeViewModel
+    lateinit var shoeViewModelFactory: ShoeViewModelFactory
     lateinit var binding: FragmentLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel = ViewModelProvider(requireActivity()).get(ShoeViewModel::class.java)
-
-        viewModel.language.observe(this, Observer {
-            showLanguage()
-        })
-
+        if (shoeViewModel == null) {
+            shoeViewModelFactory = ShoeViewModelFactory("en")
+            shoeViewModel = ViewModelProvider(
+                requireActivity(),
+                shoeViewModelFactory
+            )[ShoeViewModel::class.java]
+        }
     }
 
     //Inflating and Returning the View with DataBindingUtil
@@ -36,12 +39,17 @@ class LoginFragment : Fragment()   {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_login, container, false)
 
+        shoeViewModel.languageValue.observe(requireActivity(), Observer {
+            shoeViewModel.setLanguage(it)
+            showLanguage()
+        })
+
         binding.idImageFrFlag.setOnClickListener {
-            viewModel.language.value = "fr"
+            shoeViewModel.setLanguage("fr")
         }
 
         binding.idImageEnFlag.setOnClickListener {
-            viewModel.language.value = "en"
+            shoeViewModel.setLanguage("en")
         }
 
         binding.idCreateButton.setOnClickListener {
@@ -57,12 +65,11 @@ class LoginFragment : Fragment()   {
 
         showLanguage()
 
-
         return binding.root
     }
 
     private fun showLanguage() {
-        val languageMap: Map<String, String> = viewModel.getLoginMap()
+        val languageMap: Map<String, String> = shoeViewModel.getLoginMap()
 
         binding.idCreateButton.text = languageMap["create_button_title"]
         binding.idEmailField.hint = languageMap["hint_email_address"]

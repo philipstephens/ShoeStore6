@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.ui.onNavDestinationSelected
 import com.udacity.shoestore.R
@@ -21,13 +22,12 @@ import timber.log.Timber
 
 class ShoeList4Fragment : Fragment() {
 
-    lateinit var viewModel: ShoeViewModel
+    lateinit var shoeViewModel: ShoeViewModel
     lateinit var binding: FragmentShoeList4Binding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        viewModel = ViewModelProvider(requireActivity())[ShoeViewModel::class.java]
+        shoeViewModel = ViewModelProvider(requireActivity())[ShoeViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -38,35 +38,29 @@ class ShoeList4Fragment : Fragment() {
             R.layout.fragment_shoe_list4,
             container, false)
 
-        showShoeList()
+        shoeViewModel.shoeListDataValue.observe(requireActivity(), Observer {
+            var i = 0
+            var textView: TextView
+            binding.idShoeListLayout.removeAllViews()
 
-        return binding.root
-    }
-
-    private fun showShoeList() {
-        var textView: TextView
-        val textViewArrayList = ArrayList<TextView>()
-        val shoe_map = viewModel.getNameListMap()
-
-        binding.idListShoesTextHeading.text = shoe_map["list_shoes_text_heading"]
-        binding.idNameHeading.text = shoe_map["name_heading"]
-
-        var index = 0
-        for (shoeName in viewModel.getShoeList()) {
-            Timber.d("ShoeName: $shoeName")
-            textView = setTextViewData(shoeName)
-            textViewArrayList.add(textView)
-            binding.idShoeListLayout.addView(textViewArrayList[index])
-            setTextViewListener(textViewArrayList[index], index)
-            index++
-        }
+            if (it.size > 0) {
+                for (shoe in it) {
+                    // stop here
+                    textView = setTextViewData(shoe.name)
+                    binding.idShoeListLayout.addView(textView)
+                    setTextViewListener(textView, i)
+                }
+            }
+        })
 
         binding.fab.setOnClickListener {
-            viewModel.clearTempForm()
+            shoeViewModel.clearTempForm()
             it.findNavController().navigate(
                 ShoeList4FragmentDirections.actionShoeList4FragmentToShoeDetail2Fragment()
             )
         }
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -104,7 +98,7 @@ class ShoeList4Fragment : Fragment() {
 
     fun setTextViewListener(_textView: TextView, _index: Int) {
         _textView.setOnClickListener {
-            viewModel.setFormData(_index)
+            shoeViewModel.setFormData(_index)
             Timber.d("Index $_index")
             it.findNavController().navigate(
                 ShoeList4FragmentDirections.actionShoeList4FragmentToShoeDetail2Fragment()
