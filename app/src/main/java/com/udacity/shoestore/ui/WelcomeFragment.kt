@@ -4,19 +4,17 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.udacity.shoestore.R
 import com.udacity.shoestore.databinding.FragmentWelcomeBinding
 import com.udacity.shoestore.models.ShoeViewModel
 
-class WelcomeFragment : Fragment() {
-    lateinit var viewModel: ShoeViewModel
+class WelcomeFragment(val shoeViewModel: ShoeViewModel) : Fragment() {
     lateinit var binding: FragmentWelcomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(requireActivity())[ShoeViewModel::class.java]
+        showLanguage()
     }
 
     override fun onCreateView(
@@ -32,14 +30,13 @@ class WelcomeFragment : Fragment() {
             )
         }
 
-
         showLanguage()
 
         return binding.root
     }
 
     private fun showLanguage() {
-        val languageMap: Map<String, String> = viewModel.getWelcomeMap()
+        val languageMap: Map<String, String> = shoeViewModel.getWelcomeMap()
 
         binding.idWelcomeTextHeading.text = languageMap["welcome_heading"]
         binding.idWelcomeText1.text = languageMap["welcome_text1"]

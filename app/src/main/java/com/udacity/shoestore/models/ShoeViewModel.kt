@@ -18,10 +18,11 @@ class ShoeViewModel(_language: String): ViewModel() {
     var tempShoeData = MutableLiveData<Shoe>()
 
     init {
-        language.value = _language
         shoeListData.value = arrayListOf<Shoe>(
             Shoe("Nike", 10.0, "Nike Company", "man's runner", mutableListOf("Nike.jpg", "Joe.png"))
         )
+
+        setLanguage("en")
     }
 
     fun setLanguage(_language: String) {
